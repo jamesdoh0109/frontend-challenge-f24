@@ -1,0 +1,3 @@
+.notfound > path {
+  fill: var(--svg-path);
+}

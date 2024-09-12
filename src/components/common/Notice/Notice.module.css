@@ -1,0 +1,21 @@
+.coursenotice {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.coursenotice__text {
+  text-align: center;
+}
+
+.coursenotice__text > h1 {
+  font-size: 35px;
+}
+
+.coursenotice__text > h2 {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 5px;
+}

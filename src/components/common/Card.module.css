@@ -1,0 +1,16 @@
+.card {
+  border: var(--border);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card:hover {
+  background-color: var(--hover);
+}
+
+.card > *:not(:first-child) {
+  margin-top: 10px;
+}

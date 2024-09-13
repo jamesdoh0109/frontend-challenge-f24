@@ -1,0 +1,21 @@
+.coursedetails__header {
+  font-size: 25px;
+}
+
+.coursedetails > *:not(:first-child):not(:last-child) {
+  margin-top: 10px;
+}
+
+.coursedetails > *:last-child {
+  margin-top: 30px;
+}
+
+.coursedetails__warning {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.coursedetails__warning > *:not(:first-child) {
+  margin-left: 5px;
+}

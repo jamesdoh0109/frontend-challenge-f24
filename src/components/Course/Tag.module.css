@@ -1,0 +1,22 @@
+.tag {
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 20px;
+  margin-bottom: 5px;
+}
+
+.tag__text {
+  font-size: 12px;
+  font-weight: 900;
+  padding: 5px 12px 5px 12px;
+}
+
+.tag__primary {
+  background-color: #e5efff;
+  color: #599ef7;
+}
+
+.tag__secondary {
+  background-color: #d6d6d6;
+  color: #898989;
+}

@@ -1,0 +1,21 @@
+.courses__code {
+  font-size: 20px;
+}
+
+.courses__title {
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.courses__tags > *:not(:last-child) {
+  margin-right: 5px;
+}
+
+.courses__cartmessage {
+  margin-top: 3px;
+}
+
+.courses__cartmessage > *:not(:first-child) {
+  margin-left: 5px;
+}

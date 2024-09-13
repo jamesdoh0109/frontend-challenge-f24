@@ -1,0 +1,46 @@
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin-left: 7px;
+}
+
+.filter__open {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.filter__close {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}
+
+.filter__popup {
+  overflow-y: scroll;
+  border: var(--border);
+  border-radius: 15px;
+  padding: 15px;
+  background-color: var(--background);
+  height: 400px;
+  width: 300px;
+  position: absolute;
+  top: 25px;
+}
+
+.filter__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.filter__tags {
+  overflow-y: scroll;
+}
+
+.filter__tags > *:not(:last-child) {
+  margin-right: 5px;
+}

@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { cartState } from "@/recoil/atoms";
 import { TAXES } from "@/utils/constant";
@@ -6,15 +5,8 @@ import Button from "@/components/common/Button";
 import styles from "./Summary.module.css";
 
 export default function Summary() {
-  const { push } = useRouter();
-
-  const [cart, setCart] = useRecoilState(cartState);
-  const numCoursesInCart = cart.length;
-
-  const checkout = () => {
-    push("/checkout");
-    setCart([]);
-  };
+  const cart = useRecoilState(cartState);
+  const numCoursesInCart = cart[0].length;
 
   return (
     <div className={styles.summary}>
@@ -33,7 +25,7 @@ export default function Summary() {
         <span>Estimated total</span>
         <span>{numCoursesInCart} C.U.</span>
       </div>
-      <Button onClick={checkout} text="Checkout" />
+      <Button href="/checkout" text="Checkout" />
     </div>
   );
 }

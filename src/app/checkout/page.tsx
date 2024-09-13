@@ -1,7 +1,25 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { cartState } from "@/recoil/atoms";
+import { useRouter } from "next/navigation";
 import Notice from "@/components/common/Notice";
 import styles from "./page.module.css";
 
 export default function Page() {
+  const router = useRouter();
+
+  const [cart, setCart] = useRecoilState(cartState);
+
+  useEffect(() => {
+    if (cart.length == 0) {
+      router.push("/courses");
+    } else {
+      setCart([]);
+    }
+  }, []);
+
   return (
     <div className={styles.checkout}>
       <Notice

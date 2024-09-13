@@ -18,7 +18,7 @@ export default function Page() {
     } else {
       setCart([]);
     }
-  }, []);
+  }, [router, cart, setCart]);
 
   return (
     <div className={styles.checkout}>

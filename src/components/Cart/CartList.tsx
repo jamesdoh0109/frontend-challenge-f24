@@ -17,6 +17,7 @@ export default function CartList() {
           .sort((a, b) => a.id - b.id)
           .map((course) => (
             <CartItem
+              key={course.id}
               id={course.id}
               dept={course.dept}
               number={course.number}

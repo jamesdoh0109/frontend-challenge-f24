@@ -1,0 +1,11 @@
+.checkout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkout__svg > path {
+  fill: var(--svg-path);
+}

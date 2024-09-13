@@ -27,6 +27,10 @@
   display: flex;
 }
 
+.cart__svg > path {
+  fill: var(--svg-path);
+}
+
 @media (max-width: 900px) {
   .cart_details {
     flex-direction: column;

@@ -1,4 +1,6 @@
 .summary {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   border-radius: 5px;
   background-color: var(--hover);

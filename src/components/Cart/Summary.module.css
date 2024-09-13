@@ -1,0 +1,31 @@
+.summary {
+  flex: 1;
+  border-radius: 5px;
+  background-color: var(--hover);
+  height: 220px;
+  padding: 20px;
+}
+
+.summary > h1 {
+  font-size: 20px;
+}
+
+.summary > *:not(:first-child):not(:last-child) {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary__total {
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .summary {
+    flex: 1;
+  }
+}

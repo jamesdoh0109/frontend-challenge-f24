@@ -1,0 +1,38 @@
+.cart__empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart__empty > *:last-child {
+  margin-top: 20px;
+}
+
+.cart {
+  height: 100%;
+  padding: 15px;
+}
+
+.cart > *:first-child {
+  margin-bottom: 7px;
+}
+
+.cart > *:last-child {
+  margin-top: 15px;
+}
+
+.cart_details {
+  display: flex;
+}
+
+@media (max-width: 900px) {
+  .cart_details {
+    flex-direction: column;
+  }
+
+  .cart_details > *:last-child {
+    margin-top: 35px;
+  }
+}

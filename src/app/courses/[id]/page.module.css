@@ -1,3 +1,10 @@
+.coursedetails {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .coursedetails__svg > path {
   fill: var(--svg-path);
 }

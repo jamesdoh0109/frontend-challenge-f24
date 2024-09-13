@@ -5,6 +5,8 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: block;
+  text-align: center;
 }
 
 .btn__primary {

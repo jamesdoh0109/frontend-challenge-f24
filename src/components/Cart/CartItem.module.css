@@ -1,0 +1,21 @@
+.cartitem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.cartitem__info > h1 {
+  font-size: 18px;
+}
+
+.cartitem__info > h2 {
+  font-size: 15px;
+  font-weight: 200;
+}
+
+.icon {
+  cursor: pointer;
+}

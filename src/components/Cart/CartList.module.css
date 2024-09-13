@@ -1,0 +1,33 @@
+.cartlist {
+  flex: 3;
+  margin-right: 10px;
+}
+
+.cartlist > *:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.cartlist > *:last-child {
+  margin-top: 20px;
+}
+
+.cartlist__list > *:not(:first-child) {
+  margin-top: 5px;
+}
+
+.cartlist__cta {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #0070f3;
+}
+
+.cartlist__cta > *:not(:first-child) {
+  margin-left: 3px;
+}
+
+@media (max-width: 900px) {
+  .cartlist {
+    flex: 1;
+  }
+}

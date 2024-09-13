@@ -6,7 +6,7 @@ interface CourseNoticeProps {
   children: React.ReactNode;
 }
 
-export default function CourseNotice({
+export default function Notice({
   header,
   description,
   children,

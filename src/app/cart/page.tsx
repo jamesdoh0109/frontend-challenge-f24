@@ -1,19 +1,23 @@
+"use client";
+
+import { useRecoilState } from "recoil";
+import { cartState } from "@/recoil/atoms";
 import Notice from "@/components/common/Notice";
-import CourseDetails from "@/components/Course/CourseDetails";
-import courses from "@/data/courses.json";
+import Header from "@/components/Cart/Header";
+import CartList from "@/components/Cart/CartList";
+import Summary from "@/components/Cart/Summary";
 import styles from "./page.module.css";
+import Button from "@/components/common/Button";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const courseNumber = Number(params.id.split("-")[1]);
-  const course = courses.find((course) => course.number === courseNumber);
+export default function Page() {
+  const cart = useRecoilState(cartState);
+  const numCoursesInCart = cart[0].length;
 
-  return course ? (
-    <CourseDetails course={course} />
-  ) : (
-    <div className={styles.coursedetails}>
+  return numCoursesInCart === 0 ? (
+    <div className={styles.cart__empty}>
       <Notice
-        header="Course not found"
-        description="Looks like the course you're looking for doesn't exist. Look for another course!"
+        header="Your cart is empty!"
+        description="Add a course to make you happy(?)"
       >
         <svg
           width="150"
@@ -32,6 +36,16 @@ export default function Page({ params }: { params: { id: string } }) {
           <path d="m269.28 460.03c-3.2812 5.0312-1.9688 11.703 2.9531 15.094s11.703 2.0781 15.203-2.8438c0.76562-1.0938 18.484-25.922 62.672-25.922s61.906 24.828 62.562 25.812c2.0781 3.1719 5.5781 4.9219 9.0781 4.9219 2.0781 0 4.1562-0.54688 6.0156-1.8594 5.0312-3.3906 6.3438-10.172 3.0625-15.203-0.98438-1.4219-24.391-35.547-80.719-35.547s-79.953 34.125-80.828 35.547z" />
         </svg>
       </Notice>
+      <Button text="Continue shopping" href="/courses" />
+    </div>
+  ) : (
+    <div className={styles.cart}>
+      <Header />
+      <hr />
+      <div className={styles.cart_details}>
+        <CartList />
+        <Summary />
+      </div>
     </div>
   );
 }

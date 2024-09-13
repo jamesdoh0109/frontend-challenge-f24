@@ -89,3 +89,13 @@ export const TAGS = [
   "Virtual Memory",
   "Web Development",
 ];
+
+export const TAXES: { [key: number]: string } = {
+  1: "😁",
+  2: "🙂",
+  3: "🙁",
+  4: "😬",
+  5: "😢",
+  6: "😫",
+  7: "😭",
+};

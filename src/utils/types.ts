@@ -8,3 +8,4 @@ export type Course = {
   crossListed: string[];
   tags: string[];
 };
+

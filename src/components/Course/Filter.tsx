@@ -33,7 +33,6 @@ export default function Filter() {
       <div className={styles.filter__open}>
         <Tags onClick={() => setPopupOpen(!popupOpen)} />
       </div>
-
       {popupOpen && (
         <div className={styles.filter__popup}>
           <div className={styles.filter__header}>

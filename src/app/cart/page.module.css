@@ -10,6 +10,11 @@
   margin-top: 20px;
 }
 
+.cart__empty svg {
+  width: 200px;
+  height: 200px;
+}
+
 .cart {
   height: 100%;
   padding: 15px;
@@ -38,5 +43,10 @@
 
   .cart_details > *:last-child {
     margin-top: 35px;
+  }
+
+  .cart__empty svg {
+    width: 100px;
+    height: 100px;
   }
 }

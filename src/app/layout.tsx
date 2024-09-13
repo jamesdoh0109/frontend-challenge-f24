@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={roboto.className} suppressHydrationWarning>
-        <ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={roboto.className}>
+        <ThemeProvider defaultTheme="system" enableSystem>
           <RecoilProvider>
             <Navbar />
             <main>{children}</main>

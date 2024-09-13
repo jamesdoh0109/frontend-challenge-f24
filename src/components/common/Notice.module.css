@@ -18,3 +18,13 @@
   font-weight: 500;
   margin-top: 5px;
 }
+
+@media (max-width: 900px) {
+  .coursenotice__text > h1 {
+    font-size: 22px;
+  }
+
+  .coursenotice__text > h2 {
+    font-size: 15px;
+  }
+}

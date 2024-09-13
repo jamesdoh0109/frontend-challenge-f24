@@ -2,6 +2,7 @@ import Card from "@/components/common/Card";
 import styles from "@/components/Course/CourseItem.module.css";
 import TagGroup from "@/components/Course/TagGroup";
 import { ShoppingCart } from "lucide-react";
+import React from "react";
 
 interface CourseItemProps {
   dept: string;
@@ -11,13 +12,13 @@ interface CourseItemProps {
   courseInCart: boolean;
 }
 
-export default function CourseItem({
+const CourseItem = ({
   dept,
   number,
   title,
   tags,
   courseInCart,
-}: CourseItemProps) {
+}: CourseItemProps) => {
   return (
     <Card>
       <div>
@@ -36,3 +37,5 @@ export default function CourseItem({
     </Card>
   );
 }
+
+export default React.memo(CourseItem);

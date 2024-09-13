@@ -25,6 +25,7 @@
 .courses__details {
   padding: 30px;
   flex: 2;
+  overflow-y: auto;
 }
 
 .courses__separator {
@@ -36,8 +37,8 @@
   .courses {
     flex-direction: column-reverse;
   }
-  .courses__list {
-    flex: 1;
+  .courses__container {
+    flex: 2;
   }
   .courses__details {
     flex: 1;

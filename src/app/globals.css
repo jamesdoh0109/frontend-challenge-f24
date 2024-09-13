@@ -10,13 +10,13 @@
 }
 
 [data-theme="dark"] {
-  --background: black;
+  --background: #212830;
   --foreground: white;
   --navbar-box-shadow: 0 2px 12px 0 rgba(60, 60, 60, 0.6);
   --svg-path: white;
   --separator: rgb(45, 45, 45);
-  --border: 1px solid rgb(45, 45, 45);
-  --hover: #1c1c1c;
+  --border: 1px solid #3C444D;
+  --hover: #262C36;
   --input-placeholder: white;
 }
 

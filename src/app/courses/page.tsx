@@ -9,8 +9,6 @@ export default function Page() {
         description="Looks like you haven't selected a course. Please select a course to begin scheduling."
       >
         <svg
-          width="200"
-          height="200"
           version="1.1"
           viewBox="0 0 1200 1200"
           xmlns="http://www.w3.org/2000/svg"

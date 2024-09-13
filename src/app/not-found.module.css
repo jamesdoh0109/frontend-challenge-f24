@@ -5,6 +5,18 @@
   justify-content: center;
 }
 
+.notfound svg {
+  width: 200px;
+  height: 200px;
+}
+
 .notfound__svg > path {
   fill: var(--svg-path);
+}
+
+@media (max-width: 900px) {
+  .notfound svg {
+    width: 100px;
+    height: 100px;
+  }
 }

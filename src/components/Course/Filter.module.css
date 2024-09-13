@@ -23,7 +23,7 @@
   border-radius: 15px;
   padding: 15px;
   background-color: var(--background);
-  height: 400px;
+  height: 300px;
   width: 300px;
   position: absolute;
   top: 25px;
@@ -38,7 +38,7 @@
 }
 
 .filter__tags {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .filter__tags > *:not(:last-child) {

@@ -5,6 +5,18 @@
   justify-content: center;
 }
 
+.coursedetails svg {
+  width: 200px;
+  height: 200px;
+}
+
 .coursedetails__svg > path {
   fill: var(--svg-path);
+}
+
+@media (max-width: 900px) {
+  .coursedetails svg {
+    width: 100px;
+    height: 100px;
+  }
 }

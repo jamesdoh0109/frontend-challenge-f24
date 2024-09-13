@@ -9,8 +9,6 @@ export default function NotFound() {
         description="Looks like the page you're looking for doesn't exist!"
       >
         <svg
-          width="150"
-          height="150"
           version="1.1"
           viewBox="0 0 700 700"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-export const TAGS = [
+export const TAGS: string[] = [
   ".NET",
   "3D Modeling",
   "3D Rendering",

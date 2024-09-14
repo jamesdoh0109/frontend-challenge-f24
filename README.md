@@ -4,8 +4,6 @@
 </div>
 <div align="center">
 
-<a href="">[![GitHub Repo stars](https://img.shields.io/github/stars/jamesdoh0109/frontend-challenge-f24?logo=github&color=green)](https://github.com/jamesdoh0109/frontend-challenge-f24)</a>
-
 </div>
 
 ## Table of Contents
@@ -50,6 +48,7 @@ With Penn Course Cart, you can:
 - Filter courses based on tags
 - Add/remove courses to/from cart
 - Checkout the courses in cart
+- Get a copy of your receipt via email
 
 ## Installation and Setup
 
@@ -94,7 +93,7 @@ There are a few reasons why I chose Next.js over React for this project. For exa
 
      
 
-In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when a user visits the page. 
+In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when students visit the page. 
 
 #### CSS Modules
 
@@ -195,7 +194,7 @@ In order to simplify the dark mode logic, I have decided to use [next-themes](ht
 
 ### Redirect when accessing /checkout with empty cart
 
-In our application, a user can simply "checkout" by navigating to the /checkout route. That is, it is possible to checkout without necessarily navigating to /cart and clicking on the checkout button. Except for one scenario: if user doesn't have anything in the cart. In this case, a user should not be able to check out. To account for this situation, I have implemented the following:
+In our application, students can simply "checkout" by navigating to the /checkout page. That is, it is possible to checkout without necessarily navigating to /cart and clicking on the checkout button. Except for one scenario: if a student doesn't have anything in the cart. In this case, a student should not be able to check out. To account for this situation, I have implemented the following:
 
 ```typescript
 // /checkout/page.tsx
@@ -220,8 +219,8 @@ The  `useEffect` hook will run after the initial rendering of the page, and if a
 Once a student checks out, they have the option to send the receipt to their email address. For this, I am using [Resend](https://resend.com/emails), which is an email API that allows developers to send emails. Here's how the process works under the hood from the time student checks out:
 
 1. When the student checks out, the cart information is saved locally through the `localStorage` API. Since the cart gets cleared after checking out, we need some way to keep track of the courses they had in their cart. Normally, this information would be stored server-side in this situation, but for this simple frontend project, I have decided to leverage `localStorage`. 
-2. If the student enters their email address, the application sends a POST request to `/api/send`. This is another cool feature of Next.js—it is considered a full-stack application, so we can define our API routes without the need to separate server code in Node.js, Flask, etc. etc. The request will be made with the email and the receipt from `localStorage` in the request body. 
-3. The POST route handler function in `/api/send.route.ts` will parse the request, get the email and receipt data, and finally send out the email! 
+2. If the student enters their email address, the application sends a POST request to `/api/send`. This is another cool feature of Next.js—it is considered a full-stack application, so we can define our API routes without the need to have separate server code in Node.js, Flask, etc. The request will be made with the email and the receipt from `localStorage` in the request body. 
+3. The POST route handler function in `/api/send/route.ts` will parse the request, get the email and receipt data, and finally send out the email! 
 
 ### Mobile-Friendly
 

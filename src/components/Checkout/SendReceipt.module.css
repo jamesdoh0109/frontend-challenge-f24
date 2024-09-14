@@ -1,0 +1,29 @@
+.sendreceipt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.sendreceipt__form {
+  width: 300px;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.sendreceipt__error {
+  color: #d1361a;
+}
+
+.sendreceipt__success {
+  color: #29C772;
+}
+
+.sendreceipt__input {
+  border-radius: 25px;
+  margin-right: 9px;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #8d8d8d;
+  background-color: var(--background);
+}

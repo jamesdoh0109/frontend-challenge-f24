@@ -21,14 +21,14 @@ export default function SearchBar() {
     };
   }, [localQuery, coursesFilter, setQuery]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalQuery(e.target.value);
   };
 
   return (
     <input
       value={localQuery}
-      onChange={handleChange}
+      onChange={handleQueryChange}
       type="search"
       placeholder="Search for a course"
       className={styles.searchbar}

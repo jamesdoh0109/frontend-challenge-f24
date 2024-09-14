@@ -6,6 +6,7 @@ import { cartState } from "@/recoil/atoms";
 import { useRouter } from "next/navigation";
 import Notice from "@/components/common/Notice";
 import styles from "./page.module.css";
+import SendReceipt from "@/components/Checkout/SendReceipt";
 
 export default function Page() {
   const router = useRouter();
@@ -18,6 +19,9 @@ export default function Page() {
     if (cart.length === 0 && !cartCleared) {
       router.push("/courses");
     } else if (!cartCleared) {
+      // store the receipt in localstorage in case user wants to receive email
+      localStorage.setItem("receipt", JSON.stringify(cart));
+
       setCart([]);
       setCartCleared(true);
     }
@@ -27,7 +31,7 @@ export default function Page() {
     <div className={styles.checkout}>
       <Notice
         header="Checkout successful!"
-        description="Thanks for checking out! Hope you have a great semester!"
+        description="Want a copy of your receipt? Enter your email address below."
       >
         <svg
           width="150"
@@ -43,6 +47,7 @@ export default function Page() {
           />
         </svg>
       </Notice>
+      <SendReceipt />
     </div>
   );
 }

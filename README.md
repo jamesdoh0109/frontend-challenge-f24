@@ -44,7 +44,7 @@ Developed and deployed as part of the frontend challenge for Penn Labs, Penn Cou
 
 With Penn Course Cart, you can:
 
-- browse all CIS courses at Penn.
+- Browse all CIS courses at Penn.
 - Search for a specific course using course number, title, or description
 - Filter courses based on tags
 - Add/remove courses to/from cart
@@ -65,9 +65,9 @@ Here, I explain my choices for choosing my tech stack for this particular challe
 
 #### Next.js
 
-There are a few reasons why I chose Next.js over React for this project. For example, in React, handling different routes typically involves using a library like [React Router](https://reactrouter.com/en/main), but it can involve a good amount of complexity. With React Router, you need to manually define your routes with components like `<Routes>`, `<Route>`, and `<Switch>`. While this gives us a flexible way to manage our routes, it can definitely become cumbersome, especially when we start incorporating nested or dynamic routes. In Next.js's [App Router](https://nextjs.org/docs/app), route definition is significantly simplied through file-based routing system that automatically maps the folder structure inside the `app` directory to routes. This approach elimates the need for a manual configuration, making routing easier to manange. Here's a simplified version of the directory of routes for this particular project:
+There are a few reasons why I chose Next.js over React for this project. For example, in React, handling routes typically involves using a library like [React Router](https://reactrouter.com/en/main), but it can involve a good amount of complexity. With React Router, you need to manually define your routes with components like `<Routes>`, `<Route>`, and `<Switch>`. While this gives us a flexible way to manage our routes, it can definitely become cumbersome, especially when we start incorporating nested or dynamic routes. In Next.js's [App Router](https://nextjs.org/docs/app), we can simplify this through a file-based routing system that automatically maps the folder structure inside the `app` directory to routes. Here's a simplified version of the directory structure of routes for this particular project:
 
-     ```ruby
+     
      ├── app
          ├── cart
          │    ├── page.tsx
@@ -82,9 +82,9 @@ There are a few reasons why I chose Next.js over React for this project. For exa
          │
          ├── page.tsx
 
-     ```
+     
 
-In addition to simpler routing, Next.js can pre-render pages on the server, and by generating HTML on the server side, Next.js can deliver pages faster, improve SEO, and enhance overall performance. This applies even though we are not fetching any data from server side because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when a user visits. Additionally, the pre-rendered HTML improves SEO because the search engines can now crawl and index your app, even if the content is static.
+In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when a user visits the page. 
 
 #### CSS Modules
 
@@ -106,7 +106,7 @@ With CSS modules in Next.js, I was able to achieve better separation of concerns
 
 Using React's built in `useState` hook is simple, but as your component tree becomes larger and larger, it can face the difficulty of having to pass props down into the tree, across multiple child components (that might not need them), also known as _prop drilling_. In addition, in situations where two child components, say `A` and `B`, need to share some state, we need to make sure that the shared state is lifted to the closest common parent, also known as _state lifting_. These are valid approaches to managing state, but they can quickly make our code more difficult to manage and reason about, often times, passing props to a component that doesn't even need it and introducing tight coupling between parent and child components.
 
-For Penn Course Cart, I decided to use [Recoil](https://recoiljs.org/) for state management because it offers efficient and developer-friendly approach to handling global state, in our case, `Course` and `Cart`. Recoil's _atoms_ and _selectors_ enable components to subscribe only to specific slices of state they need, and the boilberplate is also very minimal. This means we can have simpler and cleaner code compared to popular state management tools such as [Redux](https://redux.js.org/), while still providing similar functionality but with less complexity.
+For Penn Course Cart, I decided to use [Recoil](https://recoiljs.org/) for state management because it offers efficient and developer-friendly approach to handling global state, in our case, `Course` and `Cart`. Recoil's _atoms_ and _selectors_ enable components to subscribe only to specific slices of state they need, and the boilerplate is also very minimal. This means we can have simpler and cleaner code compared to popular state management tools such as [Redux](https://redux.js.org/), while still providing similar functionality but with less complexity.
 
 ### Courses Data Customization
 
@@ -172,7 +172,7 @@ export default function CourseItem({
 
 Imagine a student who adds CIS-121 to their cart. Once they do, it will change `courseInCart` prop in `CourseList.tsx`, but interestingly enough, every single `CourseItem` re-renders, not just the one whose `courseInCart` value changed. Re-render happens not because of prop changes; a component re-renders because its _parent component_ re-renders. In this example, the change in the `cart` state will trigger the re-render of `CourseList`, which subsequently triggers the re-render of the entire list of child components. Is this necessary? At the end of the day, the only thing that is changing is `courseInCart` state for CIS-121! Do we want to re-render everything else?
 
-This is where `React.memo` comes in. This higher-order comonent (HOC) takes in another component as a prop, and memoizes it so that the component only re-renders when its props change. In our example, only the `CourseItem` component for CIS-121 will re-render after the change in `courseInCart` value. Note that React.memo performs a shallow comparison of the props, meaning that it only checks if top-level properties of the props have changed, like strings, booleans, etc. It doesn't work the same way if your props include objects, arrays, or functions, because `React.memo` will compare their references!
+This is where `React.memo` comes in. This higher-order comonent (HOC) takes in another component as a prop, and memoizes it so that the component only re-renders when its props change. In our example, only the `CourseItem` component for CIS-121 will re-render after the change in `courseInCart` value. Note that `React.memo` performs a shallow comparison of the props, meaning that it only checks if top-level properties of the props have changed, like strings, booleans, etc. It doesn't work the same way if your props include objects, arrays, or functions, because `React.memo` will compare their references!
 
 It is also important to note the cost of using `React.memo`. For an obvious reason, there is performance overhead, such as when checking for prop equalities. Some people even argue not to use it unless there is a quantifiable performance gain. In this case, since we are only dealing with ~40 courses, using `React.memo` won't give us any noticeable difference, but by using it, I just wanted to emphasize the concept of memoization and how it can be used in situations like this to avoid unnecessary re-renders. In a situation where the list of courses become larger and larger, memoization can certainly help (although in that case, it might be better to use pagination to fetch only the necessary courses to show on one page).
 
@@ -180,16 +180,17 @@ It is also important to note the cost of using `React.memo`. For an obvious reas
 
 Although the relevant courses data resides locally (meaning we are not fetching this data from an external backend service), I wanted to implement debouncing when a student searches for a specific course. The main reason for this was to mimic the typical behavior seen when interacting with backend services in fullstack applications, where making an API call for every user keystroke is not ideal. By implementing debouncing, we delay the search query until the user pauses typing, which simulates how we would optimize network requests and also improves performance.
 
-### `supressHydrationWarning`
-
-Components in Next.js runs in the server by defalt. Unlike plain-old React that runs entirely on the client-side, Next.js creates the page to be rendered on the server before sending it back to the client.
+### `suppressHydrationWarning`
+In order to simplify the dark mode logic, I have decided to use [next-themes](https://github.com/pacocoursey/next-themes). It provides a context provider `<ThemeProvider>` that wraps its child components, allowing you to easily manage light and dark themes across your application. However, Next.js renders its components on the server by default, and the server does not know if the client prefers light or dark mode. This means the server and the client can render different content, which causes what's known as hydration warnings. `suppressHydrationWarning` hides these warnings, and while the official React documentation emphasizes to "only use it as an escape hatch", this is a perfectly valid situation to use it, since the server will never know the client preference in terms of which theme to use. 
 
 ### Redirect when accessing /checkout with empty cart
 
-In our application, a user can simply "checkout" by navigating to the /checkout route. That is, it is possible to checkout without necessarily navigating to /cart and clicing on the checkout button. Except for one scenario: if user doesn't have anything in the cart. In this case, a user should not be able to check out. To account for this situation, I have implemented the following:
+In our application, a user can simply "checkout" by navigating to the /checkout route. That is, it is possible to checkout without necessarily navigating to /cart and clicking on the checkout button. Except for one scenario: if user doesn't have anything in the cart. In this case, a user should not be able to check out. To account for this situation, I have implemented the following:
 
 ```typescript
 // /checkout/page.tsx
+const [cartCleared, setCartCleared] = useState(false);
+
 useEffect(() => {
   // only redirect when user accesses /checkout with no courses in cart
   if (cart.length === 0 && !cartCleared) {
@@ -198,14 +199,16 @@ useEffect(() => {
     setCart([]);
     setCartCleared(true);
   }
-}, [router, cart, cartCleared, setCart]);
+}, [router, cart, cartCleared]);
 
+The `useEffect` 
 
 ```
+The  `useEffect` hook will run after the initial rendering of the page, and if a student doesn't have anything in the cart, then it redirects back to the /courses page. On the other hand, if a student has at least one course in the cart, it will first clear the cart (indeed, a cart should become empty after a successful checkout), and then set `cartCleared` state to true. 
 
 ### Mobile-Friendly
 
-The application looks good on the web, but it is not complete unless it is responsive (when screen size becomes mobile, for example). Here are the screenshots of some of the pages of Penn Course Cart, in both desktop and mobile views:
+Making a web application responsive is key to enhancing user experience (like tablets and mobile). Here are the screenshots of some of the pages of Penn Course Cart, both desktop and mobile:
 
 <div align="center">
   <div>

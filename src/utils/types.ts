@@ -9,3 +9,7 @@ export type Course = {
   tags: string[];
 };
 
+export type Status = {
+  error: string | null;
+  success: string | null;
+};

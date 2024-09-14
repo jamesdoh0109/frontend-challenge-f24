@@ -209,17 +209,17 @@ The application looks good on the web, but it is not complete unless it is respo
 
 <div align="center">
   <div>
-    <img src="https://drive.google.com/file/d/1To5o1KeBob10on0115QW3noqJ9CvrxeD/view?usp=drive_link" width="800">
+    <img src="https://drive.google.com/uc?export=view&id=1To5o1KeBob10on0115QW3noqJ9CvrxeD" width="800">
   </div>
   <div>
-    <img src="https://drive.google.com/file/d/1Rv73h845rmEeO6dQqDRins3z3cMsfTSn/view?usp=drive_link" width="800">
+    <img src="https://drive.google.com/uc?export=view&id=1Rv73h845rmEeO6dQqDRins3z3cMsfTSn" width="800">
   </div>
   Desktop
   <div>
-    <img src="https://drive.google.com/file/d/1IqRYHY4iT5uxVx0_3QmrjHP4a625cEmr/view?usp=drive_link" width="800">
+    <img src="https://drive.google.com/uc?export=view&id=1IqRYHY4iT5uxVx0_3QmrjHP4a625cEmr" width="800">
   </div>
   <div>
-    <img src="https://drive.google.com/file/d/1To5o1KeBob10on0115QW3noqJ9CvrxeD/view?usp=drive_link width="800">
+    <img src="https://drive.google.com/uc?export=view&id=1y8ci2eEWBKrimz2-PTZWOUe91HL36_5P" width="800">
   </div>
   Mobile
 </div>

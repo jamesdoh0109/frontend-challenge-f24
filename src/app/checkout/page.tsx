@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { cartState } from "@/recoil/atoms";
 import { useRouter } from "next/navigation";
@@ -12,20 +12,18 @@ export default function Page() {
   const router = useRouter();
 
   const [cart, setCart] = useRecoilState(cartState);
-  const [cartCleared, setCartCleared] = useState(false);
 
   useEffect(() => {
     // only redirect when user accesses /checkout with no courses in cart
-    if (cart.length === 0 && !cartCleared) {
+    if (cart.length === 0) {
       router.push("/courses");
-    } else if (!cartCleared) {
+    } else {
       // store the receipt in localstorage in case user wants to receive email
       localStorage.setItem("receipt", JSON.stringify(cart));
 
       setCart([]);
-      setCartCleared(true);
     }
-  }, [router, cart, cartCleared, setCart]);
+  }, [router, cart, setCart]);
 
   return (
     <div className={styles.checkout}>

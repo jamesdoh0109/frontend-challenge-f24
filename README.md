@@ -65,7 +65,6 @@ Once completed, follow these steps to run the development server:
 1. `npm install`
 2. `npm run dev`
 
-
 ## Implementation/Technical Notes
 
 ### Tech stack
@@ -76,7 +75,6 @@ Here, I explain my choices for choosing my tech stack for this particular challe
 
 There are a few reasons why I chose Next.js over React for this project. For example, in React, handling routes typically involves using a library like [React Router](https://reactrouter.com/en/main), but it can involve a good amount of complexity. With React Router, you need to manually define your routes with components like `<Routes>`, `<Route>`, and `<Switch>`. While this gives us a flexible way to manage our routes, it can definitely become cumbersome, especially when we start incorporating nested or dynamic routes. In Next.js's [App Router](https://nextjs.org/docs/app), we can simplify this through a file-based routing system that automatically maps the folder structure inside the `app` directory to routes. Here's a simplified version of the directory structure of routes for this particular project:
 
-     
      ├── app
          ├── cart
          │    ├── page.tsx
@@ -91,9 +89,9 @@ There are a few reasons why I chose Next.js over React for this project. For exa
          │
          ├── page.tsx
 
-     
 
-In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when students visit the page. 
+
+In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when students visit the page.
 
 #### CSS Modules
 
@@ -190,37 +188,38 @@ It is also important to note the cost of using `React.memo`. For an obvious reas
 Although the relevant courses data resides locally (meaning we are not fetching this data from an external backend service), I wanted to implement debouncing when a student searches for a specific course. The main reason for this was to mimic the typical behavior seen when interacting with backend services in fullstack applications, where making an API call for every user keystroke is not ideal. By implementing debouncing, we delay the search query until the user pauses typing, which simulates how we would optimize network requests and also improves performance.
 
 ### `suppressHydrationWarning`
-In order to simplify the dark mode logic, I have decided to use [next-themes](https://github.com/pacocoursey/next-themes). It provides a context provider `<ThemeProvider>` that wraps its child components, allowing you to easily manage light and dark themes across your application. However, Next.js renders its components on the server by default, and the server does not know if the client prefers light or dark mode. This means the server and the client can render different content, which causes what's known as hydration warnings. `suppressHydrationWarning` hides these warnings, and while the official React documentation emphasizes to "only use it as an escape hatch", this is a perfectly valid situation to use it, since the server will never know the client preference in terms of which theme to use. 
+
+In order to simplify the dark mode logic, I have decided to use [next-themes](https://github.com/pacocoursey/next-themes). It provides a context provider `<ThemeProvider>` that wraps its child components, allowing you to easily manage light and dark themes across your application. However, Next.js renders its components on the server by default, and the server does not know if the client prefers light or dark mode. This means the server and the client can render different content, which causes what's known as hydration warnings. `suppressHydrationWarning` hides these warnings, and while the official React documentation emphasizes to "only use it as an escape hatch", this is a perfectly valid situation to use it, since the server will never know the client preference in terms of which theme to use.
 
 ### Redirect when accessing /checkout with empty cart
 
-In our application, students can simply "checkout" by navigating to the /checkout page. That is, it is possible to checkout without necessarily navigating to /cart and clicking on the checkout button. Except for one scenario: if a student doesn't have anything in the cart. In this case, a student should not be able to check out. To account for this situation, I have implemented the following:
+In our application, students should not have access to to the /checkout page by entering its URL. In this case, the page will refresh, lose all of its cart data, and it doesn't make sense for students to land on /checkout page if there are no courses in the cart. To account for this situation, I have implemented the following:
 
 ```typescript
 // /checkout/page.tsx
-const [cartCleared, setCartCleared] = useState(false);
 
 useEffect(() => {
   // only redirect when user accesses /checkout with no courses in cart
-  if (cart.length === 0 && !cartCleared) {
+  if (cart.length === 0) {
     router.push("/courses");
-  } else if (!cartCleared) {
+  } else {
+    // store the receipt in localstorage in case user wants to receive email
+    localStorage.setItem("receipt", JSON.stringify(cart));
+
     setCart([]);
-    setCartCleared(true);
   }
-}, [router, cart, cartCleared]);
-
-The `useEffect` 
-
+}, [router, cart, setCart]);
 ```
-The  `useEffect` hook will run after the initial rendering of the page, and if a student doesn't have anything in the cart, then it redirects back to the /courses page. On the other hand, if a student has at least one course in the cart, it will first clear the cart (indeed, a cart should become empty after a successful checkout), and then set `cartCleared` state to true. 
+
+The `useEffect` hook will run after the initial rendering of the page, and if a student doesn't have anything in the cart, then it redirects back to the /courses page. On the other hand, if a student has at least one course in the cart, it will save the cart data in `localStorage` (more explained later), and clear the cart.
 
 ### Sending an email receipt
+
 Once a student checks out, they have the option to send the receipt to their email address. For this, I am using [Resend](https://resend.com/emails), which is an email API that allows developers to send emails. Here's how the process works under the hood from the time student checks out:
 
-1. When the student checks out, the cart information is saved locally through the `localStorage` API. Since the cart gets cleared after checking out, we need some way to keep track of the courses they had in their cart. Normally, this information would be stored server-side in this situation, but for this simple frontend project, I have decided to leverage `localStorage`. 
-2. If the student enters their email address, the application sends a POST request to `/api/send`. This is another cool feature of Next.js—it is considered a full-stack application, so we can define our API routes without the need to have separate server code in Node.js, Flask, etc. The request will be made with the email and the receipt from `localStorage` in the request body. 
-3. The POST route handler function in `/api/send/route.ts` will parse the request, get the email and receipt data, and finally send out the email! 
+1. When the student checks out, the cart information is saved locally through the `localStorage` API. Since the cart gets cleared after checking out, we need some way to keep track of the courses they had in their cart. Normally, this information would be stored server-side in this situation, but for this simple frontend project, I have decided to leverage `localStorage`.
+2. If the student enters their email address, the application sends a POST request to `/api/send`. This is another cool feature of Next.js—it is considered a full-stack application, so we can define our API routes without the need to have separate server code in Node.js, Flask, etc. The request will be made with the email and the receipt from `localStorage` in the request body.
+3. The POST route handler function in `/api/send/route.ts` will parse the request, get the email and receipt data, and finally send out the email!
 
 ### Mobile-Friendly
 

@@ -89,8 +89,6 @@ There are a few reasons why I chose Next.js over React for this project. For exa
          │
          ├── page.tsx
 
-
-
 In addition to simpler routing, Next.js can pre-render pages on the server. By generating HTML on the server side, Next.js can deliver pages faster, improve SEO (not too much relevant with this project), and enhance overall performance. This applies even when we are not fetching any data from the server because Next.js can still pre-render static pages at build time using Static Site Generation (SSG). This means that even without fetching data from the server, the HTML will be generated ahead of time and served instantly when students visit the page.
 
 #### CSS Modules
@@ -197,18 +195,20 @@ In our application, students should not have access to to the /checkout page by 
 
 ```typescript
 // /checkout/page.tsx
+const [cartCleared, setCartCleared] = useState(false);
 
 useEffect(() => {
   // only redirect when user accesses /checkout with no courses in cart
-  if (cart.length === 0) {
+  if (cart.length === 0 && !cartCleared) {
     router.push("/courses");
-  } else {
+  } else if (!cartCleared) {
     // store the receipt in localstorage in case user wants to receive email
     localStorage.setItem("receipt", JSON.stringify(cart));
 
     setCart([]);
+    setCartCleared(true);
   }
-}, [router, cart, setCart]);
+}, [router, cart, cartCleared, setCart]);
 ```
 
 The `useEffect` hook will run after the initial rendering of the page, and if a student doesn't have anything in the cart, then it redirects back to the /courses page. On the other hand, if a student has at least one course in the cart, it will save the cart data in `localStorage` (more explained later), and clear the cart.

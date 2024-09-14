@@ -24,12 +24,13 @@
   - [Debounce When Searching](#debounce-when-searching)
   - [`supressHydrationWarning`](#supresshydrationwarning)
   - [Redirect when accessing checkout page with empty cart](#redirect-when-accessing-checkout-with-empty-cart)
+  - [Sending an email receipt](#sending-an-email-receipt)
   - [Mobile-Friendly](#mobile-friendly)
 - [Get in Touch](#get-in-touch)
 
 ## Overview
 
-Developed and deployed as part of the frontend challenge for Penn Labs, Penn Course Cart allows students to browse CIS courses at Penn, add them to cart, and finally checkout. Check it out at https://penn-course-cart-rho.vercel.app!
+Developed and deployed as part of the frontend challenge for Penn Labs, Penn Course Cart allows students to browse CIS courses at Penn, add them to cart, and finally checkout. Check it out on https://www.penncoursecart.app!
 
 ## Tech stack
 
@@ -52,10 +53,19 @@ With Penn Course Cart, you can:
 
 ## Installation and Setup
 
-Fork this repository and clone it locally. Once completed, follow these steps to run the development server:
+Fork this repository and clone it locally. This app supports sending an email of the receipt, so you will need to create `.env` file at the root of the repository with the following API_KEY:
+
+```
+RESEND_API_KEY=<insert_key_here>
+```
+
+If you want to check this functionality locally, please reach out to me for the environment variable. Otherwise, you can check it out on https://www.penncoursecart.app!
+
+Once completed, follow these steps to run the development server:
 
 1. `npm install`
 2. `npm run dev`
+
 
 ## Implementation/Technical Notes
 
@@ -205,6 +215,13 @@ The `useEffect`
 
 ```
 The  `useEffect` hook will run after the initial rendering of the page, and if a student doesn't have anything in the cart, then it redirects back to the /courses page. On the other hand, if a student has at least one course in the cart, it will first clear the cart (indeed, a cart should become empty after a successful checkout), and then set `cartCleared` state to true. 
+
+### Sending an email receipt
+Once a student checks out, they have the option to send the receipt to their email address. For this, I am using [Resend](https://resend.com/emails), which is an email API that allows developers to send emails. Here's how the process works under the hood from the time student checks out:
+
+1. When the student checks out, the cart information is saved locally through the `localStorage` API. Since the cart gets cleared after checking out, we need some way to keep track of the courses they had in their cart. Normally, this information would be stored server-side in this situation, but for this simple frontend project, I have decided to leverage `localStorage`. 
+2. If the student enters their email address, the application sends a POST request to `/api/send`. This is another cool feature of Next.js—it is considered a full-stack application, so we can define our API routes without the need to separate server code in Node.js, Flask, etc. etc. The request will be made with the email and the receipt from `localStorage` in the request body. 
+3. The POST route handler function in `/api/send.route.ts` will parse the request, get the email and receipt data, and finally send out the email! 
 
 ### Mobile-Friendly
 

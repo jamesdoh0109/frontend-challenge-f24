@@ -1,8 +1,6 @@
 import Email from "@/components/Checkout/Email";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   const { email, receipt } = await req.json();
 
@@ -14,7 +12,9 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { error } = await resend.emails.send({
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const { error: ClientError } = await resend.emails.send({
       from: "Penn Course Cart <no-reply@penncoursecart.app>",
       to: [email],
       subject: "Thanks for checking out!",
@@ -23,8 +23,8 @@ export async function POST(req: Request) {
       }),
     });
 
-    if (error) {
-      return Response.json(error);
+    if (ClientError) {
+      return Response.json(ClientError, { status: 400 });
     }
 
     return Response.json(

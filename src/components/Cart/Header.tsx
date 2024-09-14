@@ -11,7 +11,9 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <h1>Shopping cart</h1>
-      <h2>{numCoursesInCart} courses</h2>
+      <h2>
+        {numCoursesInCart} course{numCoursesInCart === 0 ? "" : "s"}
+      </h2>
     </div>
   );
 }

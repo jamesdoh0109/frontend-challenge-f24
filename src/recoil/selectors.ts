@@ -18,11 +18,13 @@ export const filteredCoursesState = selector({
       .toLowerCase();
 
     return courses.filter((course) => {
-      const courseDept = course.dept?.toLowerCase() || "";
-      const courseNumber = course.number?.toString().toLowerCase() || "";
-      const courseTitle = course.title?.toLowerCase() || "";
+      const courseDept = course.dept.toLowerCase();
+      const courseNumber = course.number.toString().toLowerCase();
+      const courseTitle = course.title.replace(/\s+/g, "").toLowerCase();
       const courseString = `${courseDept}${courseNumber}`;
-      const normalizedTitle = courseTitle.replace(/\s+/g, "");
+      const courseDescription = course.description
+        .replace(/\s+/g, "")
+        .toLowerCase();
 
       const tagsMatch =
         filters.tags.length === 0 ||
@@ -32,8 +34,9 @@ export const filteredCoursesState = selector({
         !filters.query ||
         (!isNaN(Number(normalizedQuery)) &&
           courseNumber.startsWith(normalizedQuery)) ||
-        normalizedTitle.includes(normalizedQuery) ||
-        courseString.includes(normalizedQuery);
+        courseString.startsWith(normalizedQuery) ||
+        courseTitle.includes(normalizedQuery) ||
+        courseDescription.includes(normalizedQuery);
 
       return queryMatch && tagsMatch;
     });
